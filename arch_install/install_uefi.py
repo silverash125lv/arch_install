@@ -2,7 +2,11 @@ import os
 
 
 def system_clock(zone: str, city: str):
-    os.system(f"echo 'ln -sf /usr/share/zoneinfo/{zone}/{city} /etc/localtime'")
+    #os.system(f"echo 'ln -sf /usr/share/zoneinfo/{zone}/{city} /etc/localtime'")
+    src = f"/usr/share/zoneinfo/{zone}/{city}"
+    dst = f"/etc/localtime"
+    os.symlink(src, dst)
+
     os.system(f"echo 'hwclock --systohc'")
 
 
