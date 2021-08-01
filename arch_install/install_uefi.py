@@ -40,41 +40,40 @@ def create_user(username: str, password: str, shell="bash"):
 
 
 def install_packages():
-    pm = "pacman -S"
-    os.system(
-        f"echo '{pm} grub efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools'"
-    )
-    os.system(
-        f"echo '{pm} reflector base-devel linux-headers avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils'"
-    )
-    os.system(f"echo '{pm} inetutils dnsutils bluez bluez-utils cups hplip'")
-    os.system(
-        f"echo '{pm} alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync'"
-    )
-    os.system(
-        f"echo '{pm} reflector acpi acpi_call tlp tlp-rdw virt-manager qemu qemu-arch-extra edk2-ovmf bridge-utils'"
-    )
-    os.system(
-        f"echo '{pm} dnsmasq vde2 openbsd-netcat iptables-nft ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font'"
-    )
-    os.system(f"echo '{pm} xf86-video-amdgpu neovim emacs micro'")
 
     font = "noto-fonts"
-    os.system(
-        f"echo '{pm} ttf-dejavu ttf-droid ttf-ibm-plex ttf-roboto ttf-liberation ttf-ubuntu-font-family ttf-jetbrains-mono ttf-inconsolata ttf-hack ttf-fira-code otf-fira-mono ttf-fira-mono ttf-cascadia-code ttf-anonymous-pro {font} {font}-cjk {font}-emoji {font}-extra'"
-    )
+    pm = [
+        "grub efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools",
+        "reflector base-devel linux-headers avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils",
+        "inetutils dnsutils bluez bluez-utils cups hplip",
+        "alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync",
+        "reflector acpi acpi_call tlp tlp-rdw virt-manager qemu qemu-arch-extra edk2-ovmf bridge-utils",
+        "dnsmasq vde2 openbsd-netcat iptables-nft ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font",
+        "xf86-video-amdgpu neovim emacs micro",
+        "ttf-dejavu ttf-droid ttf-ibm-plex ttf-roboto ttf-liberation ttf-ubuntu-font-family ttf-jetbrains-mono",
+        f"ttf-inconsolata ttf-hack ttf-fira-code otf-fira-mono ttf-fira-mono ttf-cascadia-code ttf-anonymous-pro {font} {font}-cjk {font}-emoji {font}-extra"
 
-    os.system("echo 'systemctl enable NetworkManager'")
-    os.system("echo 'systemctl enable bluetooth'")
-    os.system("echo 'systemctl enable cups.service'")
-    os.system("echo 'systemctl enable sshd'")
-    os.system("echo 'systemctl enable avahi-daemon'")
-    os.system("echo 'systemctl enable tlp'")
-    os.system("echo 'systemctl enable reflector.timer'")
-    os.system("echo 'systemctl enable fstrim.timer'")
-    os.system("echo 'systemctl enable libvirtd'")
-    os.system("echo 'systemctl enable firewalld'")
-    os.system("echo 'systemctl enable acpid'")
+    ]
+
+    for p in pm:
+        os.system(f"echo 'pacman -S {p}'")
+
+    services = [
+        "NetworkManager", 
+        "bluetooth", 
+        "cups.service", 
+        "sshd", 
+        "avahi-daemon", 
+        "tlp", 
+        "reflector.timer",
+        "fstrim.timer",
+        "libvirtd",
+        "firewalld",
+        "acpid"
+    ]
+
+    for s in services:
+        os.system(f"echo 'systemctl enable {services}'")
 
 
 def install_grub(target="x86_64-efi", dir="/boot/efi", boot_id="GRUB"):
