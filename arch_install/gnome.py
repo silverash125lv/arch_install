@@ -17,7 +17,7 @@ def firewall_conf():
 
 def install_aur_helper(helper: str):
     os.system("echo 'cd /tmp'")
-    os.system(f"'echo git clone https://aur.archlinux.org/{helper}.git'")
+    os.system(f"echo 'git clone https://aur.archlinux.org/{helper}.git'")
     os.system(f"echo 'cd {helper}/'")
     os.system("echo 'makepkg -si'")
 
