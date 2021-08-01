@@ -2,7 +2,7 @@ import os
 
 
 def system_clock(zone: str, city: str):
-    #os.system(f"echo 'ln -sf /usr/share/zoneinfo/{zone}/{city} /etc/localtime'")
+    # os.system(f"echo 'ln -sf /usr/share/zoneinfo/{zone}/{city} /etc/localtime'")
     src = f"/usr/share/zoneinfo/{zone}/{city}"
     dst = f"/etc/localtime"
     os.symlink(src, dst)
@@ -51,25 +51,24 @@ def install_packages():
         "dnsmasq vde2 openbsd-netcat iptables-nft ipset firewalld flatpak sof-firmware nss-mdns acpid os-prober ntfs-3g terminus-font",
         "xf86-video-amdgpu neovim emacs micro",
         "ttf-dejavu ttf-droid ttf-ibm-plex ttf-roboto ttf-liberation ttf-ubuntu-font-family ttf-jetbrains-mono",
-        f"ttf-inconsolata ttf-hack ttf-fira-code otf-fira-mono ttf-fira-mono ttf-cascadia-code ttf-anonymous-pro {font} {font}-cjk {font}-emoji {font}-extra"
-
+        f"ttf-inconsolata ttf-hack ttf-fira-code otf-fira-mono ttf-fira-mono ttf-cascadia-code ttf-anonymous-pro {font} {font}-cjk {font}-emoji {font}-extra",
     ]
 
     for p in pm:
         os.system(f"echo 'pacman -S {p}'")
 
     services = [
-        "NetworkManager", 
-        "bluetooth", 
-        "cups.service", 
-        "sshd", 
-        "avahi-daemon", 
-        "tlp", 
+        "NetworkManager",
+        "bluetooth",
+        "cups.service",
+        "sshd",
+        "avahi-daemon",
+        "tlp",
         "reflector.timer",
         "fstrim.timer",
         "libvirtd",
         "firewalld",
-        "acpid"
+        "acpid",
     ]
 
     for s in services:
