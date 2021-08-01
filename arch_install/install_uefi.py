@@ -24,18 +24,15 @@ def host(name: str):
         f.write(f"127.0.1.1\t{name}.localdomain\t{name}\n")
 
 
-
-
 def create_user(username: str, password: str, shell="bash"):
 
-    username = username.lower()  
+    username = username.lower()
     os.system(f"echo 'echo root:{password} | chpasswd'")
     os.system(f"echo 'useradd -m --shell=/usr/bin/{shell} {username}'")
     os.system(f"echo 'echo {username}:{password} | chpasswd'")
 
     with open(f"./etc/sudoers.d/{username}", "w") as f:
         f.write(f"{username} ALL=(ALL) ALL")
-
 
 
 def install_packages():
